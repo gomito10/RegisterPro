@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
+import hashlib
 
 class GestionProductos:
     def __init__(self, root, user_type):
@@ -68,8 +69,9 @@ class GestionProductos:
 
         self.tree.bind("<<TreeviewSelect>>", self.on_select)
 
-        self.register_button = ttk.Button(self.product_frame, text="Ir a Caja Registradora", command=self.ir_a_caja_registradora, style="TButton")
-        self.register_button.grid(row=7, column=0, columnspan=2, pady=10, sticky="we")
+        if self.user_type != "admin":
+            self.register_button = ttk.Button(self.product_frame, text="Ir a Caja Registradora", command=self.ir_a_caja_registradora, style="TButton")
+            self.register_button.grid(row=7, column=0, columnspan=2, pady=10, sticky="we")
 
         self.cargar_productos()
 

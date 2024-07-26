@@ -8,7 +8,7 @@ class LoginRegistro:
     def __init__(self, root):
         self.root = root
         self.root.title("Login y Registro")
-        self.root.geometry("400x300+500+150")
+        self.root.geometry("400x400+500+150")
         self.root.configure(bg="#f0f0f0")
         self.root.resizable(True, True)
 
