@@ -27,7 +27,7 @@ class LoginRegistro:
         self.notebook.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
 
         self.login_frame = ttk.Frame(self.notebook)
-        self.notebook.add(self.login_frame, text="Login")
+        self.notebook.add(self.login_frame, text="Logueo")
         self.setup_login_frame()
 
         self.register_frame = ttk.Frame(self.notebook)
