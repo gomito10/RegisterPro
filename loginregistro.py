@@ -47,7 +47,8 @@ class LoginRegistro:
         self.login_frame.grid_rowconfigure(0, weight=0)
         self.login_frame.grid_rowconfigure(1,   weight=0)
         self.login_frame.grid_rowconfigure(2, weight=0)
-        #self.login_frame.grid_rowconfigure(5, weight=1)
+        self.login_frame.grid_rowconfigure(9, weight=1)
+        self.login_frame.grid_rowconfigure(10, weight=1)
 
         ttk.Label(self.login_frame, text="Usuario:", font=("Helvetica", 8)).grid(row=1, column=0, padx=10, pady=(100,10), sticky="w")
         self.login_user_entry = ttk.Entry(self.login_frame, font=("Helvetica", 8),style="TEntry")
@@ -67,6 +68,7 @@ class LoginRegistro:
         
         self.login_button = ttk.Button(self.login_frame, text="Ingresar", command=self.login, style="TButton")
         self.login_button.grid(row=7, column=0, columnspan=2, pady=30, padx=10,sticky="we")
+        ttk.Label(self.login_frame,text="NUNCA compartas tu usuario ni tus claves con nadie.\nTené en cuenta que SIEMPRE serás responssable de las\n operaciones que se puedan realizar en tu nombre al\n                                    compartirlas",font=("Helvetica",6)).grid(row=10,column=0,columnspan=2,padx=20,pady=(300,0))
     def on_key_press(self,event):
     	if self.login_user_entry.get()=="ingresar usuario":
     		self.login_user_entry.delete(0,"end")
@@ -76,20 +78,8 @@ class LoginRegistro:
             self.login_user_entry.insert(0, "ingresar usuario")
             self.login_user_entry.config(foreground="grey")
             self.login_user_entry.icursor(0)
-    def open_new_window(self, event):
-        new_window = tk.Toplevel(self.root)
-        new_window.title("Nueva Ventana")
-        new_window.geometry("400x300")
-        label = ttk.Label(new_window, text="Esta es una nueva ventana")
-        label.grid(pady=20)
-        #self.recovery_frame.#grid_columnconfigure(0, weight=1)
-#        self.recovery_frame.grid_columnconfigure(1, weight=3)
-#        self.recovery_frame.grid_rowconfigure(0, weight=1)
-#        self.recovery_frame.grid_rowconfigure(1, weight=1)
-#        self.recovery_frame.grid_rowconfigure(2, weight=1)
-        ttk.Label(new_window, text="Usuario:", font=("Helvetica", 12)).grid(row=1, column=0, padx=10, pady=5, sticky="w")
-        self.recovery_user_entry = ttk.Entry(new_window, font=("Helvetica", 12))
-        self.recovery_user_entry.grid(row=0, column=1, padx=10, pady=5, sticky="we")
+            
+    
 
 
 
@@ -123,11 +113,11 @@ class LoginRegistro:
         self.register_button.grid(row=3, column=0, columnspan=2, pady=10, sticky="we")
 
     def setup_recovery_frame(self):
-        self.recovery_frame.grid_columnconfigure(0, weight=1)
-        self.recovery_frame.grid_columnconfigure(1, weight=3)
-        self.recovery_frame.grid_rowconfigure(0, weight=1)
-        self.recovery_frame.grid_rowconfigure(1, weight=1)
-        self.recovery_frame.grid_rowconfigure(2, weight=1)
+        #self.recovery_frame.grid_columnconfigure(0, weight=1)
+#        self.recovery_frame.grid_columnconfigure(1, weight=3)
+#        self.recovery_frame.grid_rowconfigure(0, weight=1)
+#        self.recovery_frame.grid_rowconfigure(1, weight=1)
+#        self.recovery_frame.grid_rowconfigure(2, weight=1)
 
         ttk.Label(self.recovery_frame, text="Usuario:", font=("Helvetica", 12)).grid(row=1, column=0, padx=10, pady=5, sticky="w")
         self.recovery_user_entry = ttk.Entry(self.recovery_frame, font=("Helvetica", 12))
@@ -139,6 +129,69 @@ class LoginRegistro:
 
         self.recovery_button = ttk.Button(self.recovery_frame, text="Recuperar", command=self.recover_account, style="TButton")
         self.recovery_button.grid(row=2, column=0, columnspan=2, pady=10, sticky="we")
+    def close_window(self,event):
+    	for widget in self.login_frame.winfo_children():
+            widget.destroy()
+            self.setup_login_frame()
+    def open_new_window(self, event):
+        for widget in self.login_frame.winfo_children():
+            widget.destroy()
+        #self.login_frame.grid_rowconfigure(4, weight=9)
+#        self.login_frame.grid_rowconfigure(5, weight=9)
+#        self.login_frame.grid_rowconfigure(6, weight=9)
+        ttk.Label(self.login_frame, text="Olvidé mi clave y/o usuario", font=("Helvetica", 10),foreground="black").grid(row=0, column=0, padx=10, pady=(10, 10), sticky="w") 
+        ttk.Label(self.login_frame, text="Identificación", font=("Helvetica", 7),foreground="grey").grid(row=1, column=0, padx=10, pady=(0, 10), sticky="w")
+        self.close=ttk.Label(self.login_frame, text="X", font=("Helvetica", 8),foreground="grey")
+        self.close.grid(row=0, column=2, padx=10, pady=10, sticky="w")
+        
+        ttk.Label(self.login_frame, text="Ingrese su numero de documento", font=("Helvetica", 8)).grid(row=2, column=0, padx=10, pady=(200, 10), sticky="w")
+    
+        self.login_user_entry = ttk.Entry(self.login_frame, font=("Helvetica", 10),foreground="black")
+        self.login_user_entry.grid(row=3, column=0, padx=10, pady=(5, 0), sticky="we", columnspan=3)
+        self.login_user_continuar = ttk.Button(self.login_frame,text="Continuar")
+        self.login_user_continuar.grid(row=7, column=0, padx=10, pady=(750, 0), sticky="ew", columnspan=3)
+        self.close.bind("<Button-1>",self.close_window)
+        
+
+#        self.recovery_frame.grid_rowconfigure(1, weight=1)
+#        self.recovery_frame.grid_rowconfigure(2, weight=1)
+
+        #ttk.Label(self.recovery_frame, text="Usuario:", font=("Helvetica", 12)).grid(row=1, column=0, padx=10, pady=5, sticky="w")
+#        self.recovery_user_entry = ttk.Entry(self.recovery_frame, font=("Helvetica", 12))
+#        self.recovery_user_entry.grid(row=0, column=1, padx=10, pady=5, sticky="we")
+
+#        ttk.Label(self.recovery_frame, text="Nueva Contraseña:", font=("Helvetica", 12)).grid(row=2, column=0, padx=10, pady=5, sticky="w")
+#        self.recovery_pass_entry = ttk.Entry(self.recovery_frame, show="*", font=("Helvetica", 12))
+#        self.recovery_pass_entry.grid(row=1, column=1, padx=10, pady=5, sticky="we")
+
+#        self.recovery_button = ttk.Button(self.recovery_frame, text="Recuperar", command=self.recover_account, style="TButton")
+#        self.recovery_button.grid(row=2, column=0, columnspan=2, pady=10, sticky="we")
+     
+    def setup_register_frame(self):
+        self.register_frame.grid_columnconfigure(0, weight=1)
+        self.register_frame.grid_columnconfigure(1, weight=3)
+        self.register_frame.grid_rowconfigure(0, weight=1)
+        self.register_frame.grid_rowconfigure(1, weight=1)
+        self.register_frame.grid_rowconfigure(2, weight=1)
+        self.register_frame.grid_rowconfigure(3, weight=1)
+
+        ttk.Label(self.register_frame, text="Usuario:", font=("Helvetica", 12)).grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        self.register_user_entry = ttk.Entry(self.register_frame, font=("Helvetica", 12))
+        self.register_user_entry.grid(row=2, column=1, padx=10, pady=5, sticky="we")
+
+        ttk.Label(self.register_frame, text="Contraseña", font=("Helvetica", 12)).grid(row=3, column=0, padx=10, pady=5, sticky="ew")
+        self.register_pass_entry = ttk.Entry(self.register_frame, show="*", font=("Helvetica", 12))
+        self.register_pass_entry.grid(row=1, column=1, padx=10, pady=5, sticky="we")
+
+        ttk.Label(self.register_frame, text="Tipo de Usuario:", font=("Helvetica", 12)).grid(row=2, column=0, padx=10, pady=5, sticky="w")
+        self.user_type_var = tk.StringVar()
+        self.user_type_var.set("usuario")
+        ttk.Radiobutton(self.register_frame, text="Usuario", variable=self.user_type_var, value="usuario").grid(row=2, column=1, padx=10, pady=5, sticky="w")
+        ttk.Radiobutton(self.register_frame, text="Admin", variable=self.user_type_var, value="admin").grid(row=2, column=1, padx=10, pady=5, sticky="e")
+
+        self.register_button = ttk.Button(self.register_frame, text="Registrar", command=self.register, style="TButton")
+        self.register_button.grid(row=3, column=0, columnspan=2, pady=10, sticky="we")
+
 
     def create_tables(self):
         cursor = self.conn.cursor()
